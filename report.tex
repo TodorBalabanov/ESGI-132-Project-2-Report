@@ -1,0 +1,100 @@
+\documentclass[11pt,leqno]{book}
+\textwidth 13.5cm
+\textheight 18.5cm
+\topmargin 0in
+\parindent 0.5cm
+%\headsep 0in
+\oddsidemargin 0.5in
+\evensidemargin 0.5in
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx,wrapfig,url,rotating,array}
+\usepackage{fan}
+
+
+\def\bibname{{\Large\bf References}} % <----------
+\def\thebibliography#1{\addvspace{3em}\noindent
+\noindent \bibname  \list
+ {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+ \advance\leftmargin\labelsep
+ \usecounter{enumi}}
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
+
+
+\usepackage[english]{babel}
+
+\pagestyle{fancy}
+\footrulewidth 0pt
+\headrulewidth 0.5pt
+\lfoot[\thepage]{} \cfoot[]{} \rfoot[]{\thepage}
+\lhead[%Short title
+]{ESGI'132} \chead[]{} \rhead[ESGI'132]{%Short title
+}
+
+\def\efig#1#2{\includegraphics[width=#2mm]{#1}}
+\def\efigsc#1#2{\includegraphics[scale=#2]{#1}}
+\def\TTT{\end{document}}
+\def\bt{\begin{tabular}}
+\def\et{\end{tabular}}
+\def\cl{\centerline}
+\def\mc{\multicolumn}
+
+\def\diag{\mathop{\rm diag}}
+\thispagestyle{empty}
+\newcommand{\sect}[1]{\vskip7mm\par{\large \bf #1}}
+\newcommand{\subsect}[1]{\vskip 3mm\par{\bf#1}}
+
+ \def\hlst{\setlength{\topsep}{1pt}\setlength{\partopsep}{1pt}%
+ \setlength{\parsep}{1pt}\setlength{\itemsep}{\parskip}}
+%\begin{list}{{--}}{\hlst}
+
+%\setcounter{page}{101}
+\begin{document}
+
+\begin{center}
+\textbf{\LARGE
+%title
+\\}
+
+\vspace*{5mm}
+
+% autors
+
+\end{center}
+
+
+
+\sect{Abstract}
+	
+%input here abstract
+
+\textit{Key words}: %key words
+
+
+\sect{1.~Introduction}
+
+.......
+
+
+\subsect{1.1.~Definition of the problem}
+
+.....
+
+
+
+\sect{Acknowledgements.} %.....
+
+
+
+\def\bibname{{\Large\bf References}}
+\begin{thebibliography}{99}
+\bibitem{1} ....
+
+\bibitem{2} ....
+
+\end{thebibliography}
+
+\end{document}
