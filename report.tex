@@ -10,6 +10,7 @@
 \usepackage{graphicx,wrapfig,url,rotating,array}
 \usepackage{fan}
 \usepackage{subcaption}
+\usepackage{placeins}
 %
 \def\bibname{{\Large\bf References}}
 \def\thebibliography#1{\addvspace{3em}\noindent
@@ -85,19 +86,13 @@ In the process of modeling sewerage networks, the main component is the drained 
 
 Despite, this problem is important in hydrology, there is little published information in the hydrological literature. 
 
-In the paper \cite{1}, two approaches for automated generation of  Thiessen polygons are considered. Exactly, triangulation method and grid method are described and the ways for their implementation in hydrological applications is given. Also, procedure to derive the relationship between the catchment area, grid size, and accuracy indicator based on weighted mean error is described. 
+In the paper \cite{han:bra:1}, two approaches for automated generation of  Thiessen polygons are considered. Exactly, triangulation method and grid method are described and the ways for their implementation in hydrological applications is given. Also, procedure to derive the relationship between the catchment area, grid size, and accuracy indicator based on weighted mean error is described. 
 
-In the paper \cite{2}, web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented.  The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops.  Also, in the paper the workﬂow of the used DynaMind model is shown. The inputs are the user deﬁned catchment are are presented as polygons and an existing or user deﬁned combined sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub- catchments by normal distributing new inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
+In the paper \cite{mai:mik:1}, web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented.  The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops.  Also, in the paper the workﬂow of the used DynaMind model is shown. The inputs are the user deﬁned catchment are are presented as polygons and an existing or user deﬁned combined sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub- catchments by normal distributing new inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
 
-Paper \cite{3} is focused on the generation of three dimensional models of large urban/suburban environments. Automated tools can be used to provide a rapid coarse model of a city. These techniques can be tailored to generate geometry of appropriate complexity for real-time rendering, thereby negating the need for the simplification stage. In the paper, roof modelling for rectilinear polygons is used, and it is described  procedure to partition  on polygon into rectangles.
+Paper \cite{lay:day:1} is focused on the generation of three dimensional models of large urban/suburban environments. Automated tools can be used to provide a rapid coarse model of a city. These techniques can be tailored to generate geometry of appropriate complexity for real-time rendering, thereby negating the need for the simplification stage. In the paper, roof modelling for rectilinear polygons is used, and it is described  procedure to partition  on polygon into rectangles.
 
-Paper \cite{4} outlines the technical capability and functionality of SWMM. Also the advantages, disadvantage and applicability of SWMM are discussed and a brief comparison between SWMM and other common hydraulic models is presented. The hydraulic engine of SWMM has been proven and tested more than 40 years and is reported the most widely applied stormwater model in US and New Zealand.
-
-Digital elevation model (DEM) can be used to automatically generate catchment areas. San Francisco Department of Public Work (SF DPW) applied similar techniques at a fine resolution.  These results are used to study pipe hydraulics for San Francisco’s several systems. To automated the drainage catchment delineation process,  computer script in ArcGIS Model Builder called the Urbane Drainage Model is created. The Urbane Drainage Model is based on the commonly used “sleepiest path” approach,  using a gridded evaluation model, catchment areas were delineated for the City of San Francisco. A sub-catchment was created for each drain in the area.
-
-The problem  mathematically is formulated in the following way:
-
-A polygon $P$ (corresponding to the catchment) is given with the Cartesian coordinates of its vertices (corresponding to Manholes) and its edges $i= 1, \ldots, N$, (corresponding to pipes). Thus, the area of the polygon $F$ is also known. With each edge, we associate a relative area $f_i$ (corresponding to the relative water debit in percentages), where  $100\% = \sum f_i$.
+Paper \cite{lockie:1} outlines the technical capability and functionality of SWMM. Also the advantages, disadvantage and applicability of SWMM are discussed and a brief comparison between SWMM and other common hydraulic models is presented. The hydraulic engine of SWMM has been proven and tested more than 40 years and is reported the most widely applied stormwater model in US and New Zealand.
 
 \begin{figure}
 \centering
@@ -116,6 +111,13 @@ A polygon $P$ (corresponding to the catchment) is given with the Cartesian coord
 \caption{Problem input/output representation.}
 \label{fig:one}
 \end{figure}
+\FloatBarrier
+
+Digital elevation model (DEM) can be used to automatically generate catchment areas. San Francisco Department of Public Work (SF DPW) applied similar techniques at a fine resolution.  These results are used to study pipe hydraulics for San Francisco’s several systems. To automated the drainage catchment delineation process,  computer script in ArcGIS Model Builder called the Urbane Drainage Model is created. The Urbane Drainage Model is based on the commonly used “sleepiest path” approach,  using a gridded evaluation model, catchment areas were delineated for the City of San Francisco. A sub-catchment was created for each drain in the area.
+
+The problem  mathematically is formulated in the following way:
+
+A polygon $P$ (corresponding to the catchment) is given with the Cartesian coordinates of its vertices (corresponding to Manholes) and its edges $i= 1, \ldots, N$, (corresponding to pipes). Thus, the area of the polygon $F$ is also known. With each edge, we associate a relative area $f_i$ (corresponding to the relative water debit in percentages), where  $100\% = \sum f_i$.
 
 The vertices of the polygon are denoted with $v_i$, $ i = 1, \ldots, N$.
 For visualization purposes, we look for a geometric partitioning of the polygon, such that the area of the$i$-th part is equal to $f_i$.
@@ -139,6 +141,7 @@ For the given data in Fig. \ref{fig:sub3}.
 \caption{Test case data.}
 \label{fig:two}
 \end{figure}
+\FloatBarrier
 
 Standard visual interpretation is given Fig. \ref{fig:sub4}.
 
@@ -146,7 +149,7 @@ We looking for the following visual (geometrical) interpretation (Fig. \ref{fig:
 
 \sect{2.~Solution approaches}
 
-\subsect{2.1.~Monte Carlo Flooding Algorithm}
+\subsect{2.1.~Monte Carlo Flooding}
 
 With this algorithm the polygon will be divided in $N$ irregular shapes. Let the area of the figures is noticed by $c_i, i = 1. \ldots, N$.  Following is the pseudocode of the proposed MCFA.
 
@@ -169,6 +172,14 @@ The final result of the algorithm is similar to liquid foolding from different s
 
 First, we choose $N$ point, $b_i$  on random way, where $N$ is a number of edges.
 
+Each of these points, with the end points from the edges of the polygon will be connected, and on this ways we form $N$ triangles  $T_i$. The area of the triagles $T_i, i=1, \ldots, N $ will be denoted with $a_i$. The area of the polygon, outside of the triangles is denoted with $W$.  This is shown on Fig. \ref{fig:sub6}.
+
+We form following sums:
+$$B= count( b_i), i =1, \ldots, N$$
+$$ W= count(w_{(x,y)})$$ where $w_{ (x,y)}\notin T_i, \forall{ T_i}, i=1, \dots, N$
+$$ A= \sum_{(a_i - f_i)>0}(a_i-f_i)$$
+Now, we regard one triangle.  Let, for the random point $t(x_i, y_i) \in T_i$,  $d_{ij}$  is distance from the point to the $i$-edge from the polygon. 
+
 \begin{figure}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -187,21 +198,6 @@ First, we choose $N$ point, $b_i$  on random way, where $N$ is a number of edges
 \label{fig:three}
 \end{figure}
 
-Each of these points, with the end points from the edges of the polygon will be connected, and on this ways we form $N$ triangles  $T_i$. The area of the triagles $T_i, i=1, \ldots, N $ will be denoted with $a_i$. The area of the polygon, outside of the triangles is denoted with $W$.  This is shown on Fig. \ref{fig:sub6}.
-
-We form following sums:
-$$B= count( b_i), i =1, \ldots, N$$
-$$ W= count(w_{(x,y)})$$ where $w_{ (x,y)}\notin T_i, \forall{ T_i}, i=1, \dots, N$
-$$ A= \sum_{(a_i - f_i)>0}(a_i-f_i)$$
-Now, we regard one triangle.  Let, for the random point $t(x_i, y_i) \in T_i$,  $d_{ij}$  is distance from the point to the $i$-edge from the polygon. 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=.5\linewidth]{pic06.png}
-  \caption{Calculate average distance of all pixels in the sub-plygon to the polygon side.}
-\label{fig:four}
-\end{figure}
-
 The  following sums are formed: $$d_i = \frac{\sum_{j=1}^k d_{ij}}k$$
 where $k$ is a  total number of the point on the triangle  and
 
@@ -209,6 +205,14 @@ $$D = \sum_{i=1}^N d_i$$.
 
 We need to estimated cost function
 $$cost f = D+W + A + B$$.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\linewidth]{pic06.png}
+  \caption{Calculate average distance of all pixels in the sub-plygon to the polygon side.}
+\label{fig:four}
+\end{figure}
+\FloatBarrier
 
 Our goal is to minimized the cost function. Since, we need to minimize $D, W, A, B$. The set of values for $W$ is $[0, count( p(x_i, y_i))], \forall p(x_i, y_i) \in P$. From , this we can conclude, that optimal value for W is 0.
 The set of values for $A$ is $[0, count (p(x_i, y_i))], \forall p(x_i, y_i) \in P$, we conclude that minimal value of $A$ is 0. And, the $B$ have set of values $[N,count( p(x_i, y_i))], \forall p(x_i, y_i) \in P$, and minimal value from $B$ is $N$, where $N$ is a number of edges of the polygon.
@@ -235,13 +239,11 @@ The given area is divided into a fine grid of pixels. The sides of the polygon a
 
 After we are done with 4.2 we simplify the polygon on which we run the algorithm. Following these iterations we get a triangle(s) in the end which area to side distributions we can find easily.
 
-\subsect{2.5.~Fifth approach}
-
-\subsect{2.6.~Sixth approach}
-
 \sect{3.~Experimens and Results}
 
-\subsect{3.1.~Monte Carlo Flooding Algorithm}
+\subsect{3.1.~Monte Carlo Flooding}
+
+Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in the solution of the problem. The biggest disadvantage is related with the fact that 2D space is divided in shapes similar to semi-circles when polygons are required. Second biggest disadvantage is about optimal distribution of the sub-areas, which is clearly visible in Fig. \ref{fig:sub7}. 
 
 \begin{figure}
 \centering
@@ -249,21 +251,22 @@ After we are done with 4.2 we simplify the polygon on which we run the algorithm
   \centering
   \includegraphics[width=.5\linewidth]{pic08.png}
   \caption{Test case 1.}
-  \label{fig:sub1}
+  \label{fig:sub7}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{pic09.png}
   \caption{Test case 2.}
-  \label{fig:sub2}
+  \label{fig:sub8}
 \end{subfigure}
 \caption{Monte Carlo Flooding algorithm results.}
 \label{fig:five}
 \end{figure}
+\FloatBarrier
 
-\subsect{3.2.~Genetic Algorithm}
+\subsect{3.2.~Percent Distributed Clustering}
 
-\subsect{3.3.~Percent Distributed Clustering}
+Percent Distributed Clustering divides the polygon in straight lines.
 
 \begin{figure}
 \centering
@@ -271,38 +274,60 @@ After we are done with 4.2 we simplify the polygon on which we run the algorithm
   \centering
   \includegraphics[width=.5\linewidth]{pic10.png}
   \caption{Test case 1.}
-  \label{fig:sub1}
+  \label{fig:sub9}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{pic11.png}
   \caption{Test case 2.}
-  \label{fig:sub2}
+  \label{fig:sub10}
 \end{subfigure}
-\caption{Monte Carlo Flooding algorithm results.}
+\caption{Percent Distributed Clustering algorithm results.}
 \label{fig:six}
 \end{figure}
+\FloatBarrier
 
-\subsect{3.4.~Offsetting Polygon}
+\subsect{3.3.~Offsetting Polygon}
 
-\subsect{3.5.~Fifth approach}
+Offsetting Polygon divides the polygon in straight lines.
 
-\subsect{3.6.~Sixth approach}
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{pic12.png}
+  \caption{Initial step.}
+  \label{fig:sub11}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{pic13.png}
+  \caption{Final result.}
+  \label{fig:sub12}
+\end{subfigure}
+\caption{Offsetting Polygon algorithm results.}
+\label{fig:seven}
+\end{figure}
+\FloatBarrier
 
 \sect{Conclusions}
 
+Experimental results show that usage of Percent Distributed Clustering and Offsetting Polygon can produce much better accepted results than Monte Carlo Flooding.
+
 \sect{Acknowledgements}
+
+Faculty of Mathematics and Informatics, Sofia University St. Kliment Ohridski, Institute of Information and Communication Technologies, Bulgarian Academy of Sciences, Institute of Mathematics and Informatics, Bulgarian Academy of Sciences, European Consortium for Mathematics in Industry, Skyscanner Ltd., Vodostroitelno Predpriatie Ltd., Academy of Music, Dance and Fine Arts - Plovdiv
 
 \def\bibname{{\Large\bf References}}
 \begin{thebibliography}{99}
 %
-\bibitem{1} Han, D., and Bray, M. “Automated Thiessen polygon generation”, Water resources research, vol. 42, 2006.
+\bibitem{han:bra:1} Han, D., and Bray, M. “Automated Thiessen polygon generation”, Water resources research, vol. 42, 2006.
 %
-\bibitem{2} Mair M., Mikovits C., Sengthaler M., Schoepf M., Kinzel H., Urich C., Kleidorfer M., Sitzenfrei R. and Rauch W, “The application of a Web-geographic information system for improving urban water cycle modelling “  Water Science and Technology 70(11), 2014, pp.1838-1846.
+\bibitem{mai:mik:1} Mair M., Mikovits C., Sengthaler M., Schoepf M., Kinzel H., Urich C., Kleidorfer M., Sitzenfrei R. and Rauch W, “The application of a Web-geographic information system for improving urban water cycle modelling “  Water Science and Technology 70(11), 2014, pp.1838-1846.
 %
-\bibitem{3} Laycock R. G., Day A. M.”Automatically generating large urban environments based on the footprint data of buildings”, Proceedings of the eighth ACM symposium on Solid modeling and applications (New York, NY, USA), ACM Press, 2003, pp. 346–351.
+\bibitem{lay:day:1} Laycock R. G., Day A. M.”Automatically generating large urban environments based on the footprint data of buildings”, Proceedings of the eighth ACM symposium on Solid modeling and applications (New York, NY, USA), ACM Press, 2003, pp. 346–351.
 %
-\bibitem{4} Lockie T, “Catchment Modelling using SWMM” Modelling Stream at the 49th Water New Zealand Annual Conference and Expo, 2009.
+\bibitem{lockie:1} Lockie T, “Catchment Modelling using SWMM” Modelling Stream at the 49th Water New Zealand Annual Conference and Expo, 2009.
 %
 \end{thebibliography}
 %
