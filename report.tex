@@ -94,7 +94,7 @@ Paper \cite{lay:day:1} is focused on the generation of three dimensional models 
 
 Paper \cite{lockie:1} outlines the technical capability and functionality of SWMM. Also the advantages, disadvantage and applicability of SWMM are discussed and a brief comparison between SWMM and other common hydraulic models is presented. The hydraulic engine of SWMM has been proven and tested more than 40 years and is reported the most widely applied stormwater model in US and New Zealand.
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -124,7 +124,7 @@ For visualization purposes, we look for a geometric partitioning of the polygon,
 
 For the given data in Fig. \ref{fig:sub3}.
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -180,7 +180,7 @@ $$ W= count(w_{(x,y)})$$ where $w_{ (x,y)}\notin T_i, \forall{ T_i}, i=1, \dots,
 $$ A= \sum_{(a_i - f_i)>0}(a_i-f_i)$$
 Now, we regard one triangle.  Let, for the random point $t(x_i, y_i) \in T_i$,  $d_{ij}$  is distance from the point to the $i$-edge from the polygon. 
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -206,7 +206,7 @@ $$D = \sum_{i=1}^N d_i$$.
 We need to estimated cost function
 $$cost f = D+W + A + B$$.
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \includegraphics[width=.5\linewidth]{pic06.png}
   \caption{Calculate average distance of all pixels in the sub-plygon to the polygon side.}
@@ -224,20 +224,23 @@ The given area is divided into a fine grid of pixels. The sides of the polygon a
 
 \subsect{2.4.~Offsetting Polygon}
 
+The main idea of the offsetting polygon approach is to fill the initial polygon with smaller ones of which each side is parallel to the corresponding one of the initial polygon. The initial algorithm is the following:
+
 \noindent\rule{\textwidth}{1pt}
 \begin{itemize}
-\item[Step 1.] Draw a parallel segment to each side of the polygon, creating a smaller polygon inside. 
+
+\item[Step 1.] Draw a parallel segment to each side of the polygon, creating a smaller polygon inside each with an offesetting distance $h$. 
 \item[Step 2.] Connect each of the corresponding vertices of each polygon and calculate the area of the trapezoids created.
 \item[Step 3.] Calculate the area of the created trapezoids and check if it fits the data.
-\item[Step 4.] If the area doesn’t fit we continue with creating parallel polygons.
 \begin{itemize}
-  \item[Step 4.1] If the desired area is accomplished, fix the side of the corresponding trapezoid and stop drawing parallel sides for it.
-  \item[Step 4.2] 
+\item[Step 3.1] If the area doesn't fit we continue with creating parallel polygons.
+\item[Step 3.2] If the desired area is accomplished, fix the side of the corresponding trapezoid and stop drawing parallel sides for it.
 \end{itemize}
+  \item[Step 4] Continue \textit{Step 2} until the data is fitted.
 \end{itemize}
 \noindent\rule{\textwidth}{1pt}
 
-After we are done with 4.2 we simplify the polygon on which we run the algorithm. Following these iterations we get a triangle(s) in the end which area to side distributions we can find easily.
+The initial algorithm applied worked very well for convex polygons. But when the algorithm was tested on a concave polygon the results were unsatisfying and this approach needed to be modified. The modifications were in the form of defining a different offsetting step $h$ for each side i.e. we will have $n$ different distances, where $n$ is the number of the polygon's sides. Following this approach, we end up with the concave angle's corresponding sides intersect with the opposite side. At this iteration of the algorithm, we modify the distance between the parallel sides so that they cross the opposite side at one point. As a result, we obtain two smaller polygons for which we apply the same algorithm. By the end with this modified approach we get a triangle(s) which area to side distributions can be found easily.
 
 \sect{3.~Experimens and Results}
 
@@ -245,7 +248,7 @@ After we are done with 4.2 we simplify the polygon on which we run the algorithm
 
 Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in the solution of the problem. The biggest disadvantage is related with the fact that 2D space is divided in shapes similar to semi-circles when polygons are required. Second biggest disadvantage is about optimal distribution of the sub-areas, which is clearly visible in Fig. \ref{fig:sub7}. 
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -268,7 +271,7 @@ Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in
 
 Percent Distributed Clustering divides the polygon in straight lines.
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -289,9 +292,9 @@ Percent Distributed Clustering divides the polygon in straight lines.
 
 \subsect{3.3.~Offsetting Polygon}
 
-Offsetting Polygon divides the polygon in straight lines.
+Offsetting polygon method divides the polygon into smaller polygons with sides parallel to the initial one. Figure \ref{fig:sub11} shows the intitial step of the algorithm. Figure \ref{fig:sub12} is the result from the unmodified algorithm, ran on a concave polygon. Figure \ref{fig:sub13} contains the step with the intersecting parts of the polygon and a final result of two smaller triangles.
 
-\begin{figure}
+\begin{figure}[h!] 
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -307,6 +310,22 @@ Offsetting Polygon divides the polygon in straight lines.
 \end{subfigure}
 \caption{Offsetting Polygon algorithm results.}
 \label{fig:seven}
+\end{figure}
+\FloatBarrier
+
+Figure 8 shows the interception step of the modified algorithm and Figure 9 shows the final result of the algorithm.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.6\linewidth]{pic15.png}
+  \caption{Intercepting part of the algorithm.}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.9\linewidth]{pic14.png}
+  \caption{Modified offsetting polygon algorithm.}
 \end{figure}
 \FloatBarrier
 
