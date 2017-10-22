@@ -88,7 +88,7 @@ Despite, this problem is important in hydrology, there is little published infor
 
 In the paper \cite{han:bra:1}, two approaches for automated generation of  Thiessen polygons are considered. Exactly, triangulation method and grid method are described and the ways for their implementation in hydrological applications is given. Also, procedure to derive the relationship between the catchment area, grid size, and accuracy indicator based on weighted mean error is described. 
 
-In the paper \cite{mai:mik:1}, web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented.  The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops.  Also, in the paper the workﬂow of the used DynaMind model is shown. The inputs are the user deﬁned catchment are are presented as polygons and an existing or user deﬁned combined sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub- catchments by normal distributing new inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
+In the paper \cite{mai:mik:1}, web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented.  The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops. Also, in the paper the workﬂow of the used DynaMind model is shown. The input is an user deﬁned catchments. They are presented as polygons and an existing (or user deﬁned combined) sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub-catchments by normal distributing. New inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
 
 Paper \cite{lay:day:1} is focused on the generation of three dimensional models of large urban/suburban environments. Automated tools can be used to provide a rapid coarse model of a city. These techniques can be tailored to generate geometry of appropriate complexity for real-time rendering, thereby negating the need for the simplification stage. In the paper, roof modelling for rectilinear polygons is used, and it is described  procedure to partition  on polygon into rectangles.
 
@@ -158,10 +158,10 @@ With this algorithm the polygon will be divided in $N$ irregular shapes. Let the
 \item[Step 1.]  For all edges, find middle point of the edge, $t_i(x,y)$.
 \item[Step 2.]  For all points $t_i(x,y), i=1,\ldots, N$, form figures $IF_i$ from the nearest points on the point $t_i(x,y)$. 
 \item[Step 3.] Find areas of the formed figures, $c_i, i = 1, \ldots, N$.
-\item[Step 4.] For $i = 1$ to $N$
+\item[Step 4.] For $j = 1$ to $N$
 \begin{itemize}
-  \item[Step 4.1]  While ($c_i \leq f_i$)
-  \item[Step 4.2]  Add nearest points to boundary on figure $IF_i$ in the figure $IF_i$. 
+  \item[Step 4.1]  While ($c_i \leq f_j$)
+  \item[Step 4.2]  Add nearest points to boundary on figure $IF_i$ in the figure $IF_j$. 
 \end{itemize}
 \end{itemize}
 \noindent\rule{\textwidth}{1pt}
