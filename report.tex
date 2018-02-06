@@ -11,7 +11,7 @@
 \usepackage{fan}
 \usepackage{subcaption}
 \usepackage{placeins}
-%
+
 \def\bibname{{\Large\bf References}}
 \def\thebibliography#1{\addvspace{3em}\noindent
 \noindent \bibname  \list
@@ -22,15 +22,15 @@
  \sloppy\clubpenalty4000\widowpenalty4000
  \sfcode`\.=1000\relax}
 \let\endthebibliography=\endlist
-%
+
 \usepackage[english]{babel}
-%
+
 \pagestyle{fancy}
 \footrulewidth 0pt
 \headrulewidth 0.5pt
 \lfoot[\thepage]{} \cfoot[]{} \rfoot[]{\thepage}
 \lhead[Geometric Visualization of a Polygon Area Partitioning]{ESGI'132} \chead[]{} \rhead[ESGI'132]{Geometric Visualization of a Polygon Area Partitioning}
-%
+
 \def\efig#1#2{\includegraphics[width=#2mm]{#1}}
 \def\efigsc#1#2{\includegraphics[scale=#2]{#1}}
 \def\TTT{\end{document}}
@@ -38,22 +38,22 @@
 \def\et{\end{tabular}}
 \def\cl{\centerline}
 \def\mc{\multicolumn}
-%
+
 \def\diag{\mathop{\rm diag}}
 \thispagestyle{empty}
 \newcommand{\sect}[1]{\vskip7mm\par{\large \bf #1}}
 \newcommand{\subsect}[1]{\vskip 3mm\par{\bf#1}}
-%
+
  \def\hlst{\setlength{\topsep}{1pt}\setlength{\partopsep}{1pt}%
  \setlength{\parsep}{1pt}\setlength{\itemsep}{\parskip}}
-%
+
 \begin{document}
-%
+
 \begin{center}
 \textbf{\LARGE Geometric Visualization of a Polygon Area Partitioning}
 
 \vspace*{5mm}
-%
+
 Todor Balabanov,
 Stanislav Darachev,
 Ivan Jordanov,
@@ -67,28 +67,22 @@ Emiliyan Rogachev,
 Natasha Stojkovikj,
 Petar Tomov,
 Iliyan Zankinski
-%
-\end{center}
-%
-\date{18-22 Sep 2017}
-%
-\sect{Abstract}
-%
-In the process of modeling sewerage networks, the main component is the drained area (catchment) from which water is collected to each conduit (pipe). If the area for a single subcatchment is derived from a mathematical model, we have to create the geometry of that territory. For visualization purpose, we need to find geometric partitioning of the polygon.
 
-In this paper we propose 6 solutions for geometric visualization of a polygon area partitioning.
+\end{center}
+
+\date{18-22 Sep 2017}
+
+\sect{Abstract}
+
+In the process of modeling sewerage networks, the main component is the drained area (catchment) from which water is collected to each conduit (pipe). If the area for a single subcatchment is derived from a mathematical model, we have to create the geometry of that territory. For visualization purpose, we need to find geometric partitioning of the polygon. In this paper solutions for geometric visualization of a polygon partitioning are proposed.
 
 \textit{Key words}: visualization, polygon area partitioning, optimal cutting problem
 
 \sect{1.~Introduction}
 
-In the process of modeling sewerage networks, the main component is the drained area (catchment) from which water is collected to each conduit (pipe). If the area for a single sub-catchment is derived from a mathematical model, we have to create the geometry of that territory, Exactly, in this paper, we want to make geometric visualization for partitioning of a given living area, with respect to the known water debit, relative to each pipe. If each pipe is represent as edges and these edges formed polygon  then our main goal is to make geometric visualization of a polygon area partitioning.  
+In the process of modeling sewerage networks, the main component is the drained area (catchment) from which water is collected to each conduit (pipe). If the area for a single sub-catchment is derived from a mathematical model, we have to create the geometry of that territory. In this paper we want to make geometric visualization for partitioning of a given living area. Partitioning is done according known water debit relative to each pipe. All pipes are associated to with edges of a polygon (single pipe for a single edge). The fianl goal is to generate geometric visualization of a polygon partitioning.  
 
-Despite, this problem is important in hydrology, there is little published information in the hydrological literature. 
-
-In the paper \cite{han:bra:1}, two approaches for automated generation of  Thiessen polygons are considered. Exactly, triangulation method and grid method are described and the ways for their implementation in hydrological applications is given. Also, procedure to derive the relationship between the catchment area, grid size, and accuracy indicator based on weighted mean error is described. 
-
-In the paper \cite{mai:mik:1}, web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented.  The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops. Also, in the paper the workﬂow of the used DynaMind model is shown. The input is an user deﬁned catchments. They are presented as polygons and an existing (or user deﬁned combined) sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub-catchments by normal distributing. New inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
+This problem is very common in hydrology and limited information is published in the hydrological literature. Two approaches for automated generation of Thiessen polygons are considered in \cite{han:bra:1} - triangulation method and grid method. The ways for their implementation in hydrological applications is also given. Description of procedure to derive the relationship between the catchment area, grid size and accuracy indicator based on weighted mean error is also provided. Web-based urban water management modeling platform for simplifying the setup and use of complex integrated models is presented in \cite{mai:mik:1}. The paper demonstrates how flooding behavior of new urban developments can easily be assessed with the web platform, i.e. to inform discussions in interdisciplinary and interactive stakeholder workshops. The workflow of the used DynaMind model is also shown. As input it uses user deﬁned catchments. They are presented as polygons and an existing (or user deﬁned combined) sewer system model which will be affected by the new catchments. This polygon is divided into several smaller polygons/sub-catchments by normal distributing. New inlet nodes within the polygon and creating a Voronoi diagram on the bases of these nodes. 
 
 Paper \cite{lay:day:1} is focused on the generation of three dimensional models of large urban/suburban environments. Automated tools can be used to provide a rapid coarse model of a city. These techniques can be tailored to generate geometry of appropriate complexity for real-time rendering, thereby negating the need for the simplification stage. In the paper, roof modelling for rectilinear polygons is used, and it is described  procedure to partition  on polygon into rectangles.
 
@@ -218,11 +212,7 @@ Our goal is to minimized the cost function. Since, we need to minimize $D, W, A,
 The set of values for $A$ is $[0, count (p(x_i, y_i))], \forall p(x_i, y_i) \in P$, we conclude that minimal value of $A$ is 0. And, the $B$ have set of values $[N,count( p(x_i, y_i))], \forall p(x_i, y_i) \in P$, and minimal value from $B$ is $N$, where $N$ is a number of edges of the polygon.
 if we succeed to minimize $A, B, W$, we will give the minimum value of the cost function.
 
-\subsect{2.3.~Percent Distributed Clustering}
-
-The given area is divided into a fine grid of pixels. The sides of the polygon are also divided into sixty line segments each. For each pixel of the area the algorithm finds the line segment that gives the lowest value for the distance between the pixel and the line segment multiplied by 100 minus the required percentage of the area: distance * (100 - f(x)). The side that the line segment belongs to is the side that the area taken by the pixel will drain into.
-
-\subsect{2.4.~Offsetting Polygon}
+\subsect{2.3.~Offsetting Polygon}
 
 The main idea of the offsetting polygon approach is to fill the initial polygon with smaller ones of which each side is parallel to the corresponding one of the initial polygon. The initial algorithm is the following:
 
@@ -246,7 +236,7 @@ The initial algorithm applied worked very well for convex polygons. But when the
 
 \subsect{3.1.~Monte Carlo Flooding}
 
-Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in the solution of the problem. The biggest disadvantage is related with the fact that 2D space is divided in shapes similar to semi-circles when polygons are required. Second biggest disadvantage is about optimal distribution of the sub-areas, which is clearly visible in Fig. \ref{fig:sub7}. 
+Monte Carlo Flooding is very efficient heuristics it has a few disadvantages in which make it inappropriate for acceptable solution of the problem. At first place 2D space is divided on shapes similar to semi-circles when polygons are required. At second place it is obvious that distribution of the sub-areas is not optimal, which is clearly visible in Fig. \ref{fig:sub7}. 
 
 \begin{figure}[h!]
 \centering
@@ -255,7 +245,7 @@ Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in
   \includegraphics[width=.5\linewidth]{pic08.png}
   \caption{Test case 1.}
   \label{fig:sub7}
-\end{subfigure}%
+\end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{pic09.png}
@@ -267,30 +257,7 @@ Monte Carlo Flooding is very efficient heuristics it it has few disadvantages in
 \end{figure}
 \FloatBarrier
 
-\subsect{3.2.~Percent Distributed Clustering}
-
-Percent Distributed Clustering divides the polygon in straight lines.
-
-\begin{figure}[h!]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{pic10.png}
-  \caption{Test case 1.}
-  \label{fig:sub9}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{pic11.png}
-  \caption{Test case 2.}
-  \label{fig:sub10}
-\end{subfigure}
-\caption{Percent Distributed Clustering algorithm results.}
-\label{fig:six}
-\end{figure}
-\FloatBarrier
-
-\subsect{3.3.~Offsetting Polygon}
+\subsect{3.2.~Offsetting Polygon}
 
 Offsetting polygon method divides the polygon into smaller polygons with sides parallel to the initial one. Figure \ref{fig:sub11} shows the intitial step of the algorithm. Figure \ref{fig:sub12} is the result from the unmodified algorithm, ran on a concave polygon. Figure \ref{fig:sub13} contains the step with the intersecting parts of the polygon and a final result of two smaller triangles.
 
@@ -301,7 +268,7 @@ Offsetting polygon method divides the polygon into smaller polygons with sides p
   \includegraphics[width=.5\linewidth]{pic12.png}
   \caption{Initial step.}
   \label{fig:sub11}
-\end{subfigure}%
+\end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{pic13.png}
@@ -331,23 +298,19 @@ Figure 8 shows the interception step of the modified algorithm and Figure 9 show
 
 \sect{Conclusions}
 
-Experimental results show that usage of Percent Distributed Clustering and Offsetting Polygon can produce much better accepted results than Monte Carlo Flooding.
-
-\sect{Acknowledgements}
-
-Faculty of Mathematics and Informatics, Sofia University St. Kliment Ohridski, Institute of Information and Communication Technologies, Bulgarian Academy of Sciences, Institute of Mathematics and Informatics, Bulgarian Academy of Sciences, European Consortium for Mathematics in Industry, Skyscanner Ltd., Vodostroitelno Predpriatie Ltd., Academy of Music, Dance and Fine Arts - Plovdiv
+The experimental results show that the Offsetting Polygon algorithm can produce much better results than Monte Carlo Flooding algorithm. Monte Carlo Flooding algorithm is useful for initial idea of polygon separation.
 
 \def\bibname{{\Large\bf References}}
 \begin{thebibliography}{99}
-%
+
 \bibitem{han:bra:1} Han, D., and Bray, M. “Automated Thiessen polygon generation”, Water resources research, vol. 42, 2006.
-%
+
 \bibitem{mai:mik:1} Mair M., Mikovits C., Sengthaler M., Schoepf M., Kinzel H., Urich C., Kleidorfer M., Sitzenfrei R. and Rauch W, “The application of a Web-geographic information system for improving urban water cycle modelling “  Water Science and Technology 70(11), 2014, pp.1838-1846.
-%
+
 \bibitem{lay:day:1} Laycock R. G., Day A. M.”Automatically generating large urban environments based on the footprint data of buildings”, Proceedings of the eighth ACM symposium on Solid modeling and applications (New York, NY, USA), ACM Press, 2003, pp. 346–351.
-%
+
 \bibitem{lockie:1} Lockie T, “Catchment Modelling using SWMM” Modelling Stream at the 49th Water New Zealand Annual Conference and Expo, 2009.
-%
+
 \end{thebibliography}
-%
+
 \end{document}
