@@ -134,84 +134,79 @@ As example, for the given data in Fig. \ref{fig:sub3} and standard visual interp
 
 \sect{2.~Solution approaches}
 
+\subsect{2.1.~Numerical Evaluation of Solutions Quality}
+
 For searching of empirical solutions it is convenient the polygon $P$ to be presented as grid of square pixels $p_{(x,y)}$. After transformation of the problem into 2D discrete space the quality of the solutions should be measured. A cost function with four components is selected. 
 
 $$\min CF = B + W + A + D$$
 
+As minimal is the cost function as better is the solution. The simplest const function model is the linear model ant that is why it was selected, but other variations are also possible and it will be interesting to be investigated in some further studies. 
+
 $$B = \sum_{i=1}^N b_i$$
 
-$b_i$ is the number of vertices of the sub-polygon $T_i$ attached to the edge $i$.
+Where $b_i$ is the number of vertices of the sub-polygon $T_i$ attached to the edge $i$. The lowest value of $B$ is achieved when all sub-polygons are triangles and in this case $B$ has value of $N$. Upper of theoretical limit of $B$ is the total number of pixels which are part of the polygon $P$.
 
 $$W= count( p_{(x,y)} ), p_{(x,y)} \notin T_i, \forall{ T_i}, i=1, \dots, N$$
 
+The lower bound of $W$ is zero when there is no uncovered area in the polygon $P$. The upper bound of $W$ is the total number of pixels inside the polygon $P$. In this case any sub-area is covered. 
+
 $$A = \sum_{(a_i - f_i)>0}(a_i - f_i)$$
 
-$a_i$ is the percentage of the area which sub-polygon $T_i$ takes from the polygn $P$.
+Where $a_i$ is the percentage of the area which sub-polygon $T_i$ takes from the polygn $P$. The lowest value of $A$ is zero and it means that there is no overloading of any sub-area. Theoretical upper value of $A$ is one hundred and it can be achieved when all quantities $f_i$ are zero, but sub-polygons $T_i$ fulfill the polygon $P$.
 
 $$D = \sum_{i=1}^N \frac{\sum_{j=1}^k d_{ij}}k$$
 
-$d_{ij}$ is the distance between each pixel $j$ part of the sub-polygon $T_i$ and the edge $i$ of the polygon $P$, $k$ is the total number of pixels in the sub-polygon $T_i$.
-
-\subsect{2.1.~Monte Carlo Flooding}
-
-With this algorithm the polygon will be divided in $N$ irregular shapes. Let the area of the figures is noticed by $c_i, i = 1. \ldots, N$.  Following is the pseudocode of the proposed MCFA.
-
-\noindent\rule{\textwidth}{1pt}
-\begin{itemize}
-\item[Step 1.]  For all edges, find middle point of the edge, $t_i(x,y)$.
-\item[Step 2.]  For all points $t_i(x,y), i=1,\ldots, N$, form figures $IF_i$ from the nearest points on the point $t_i(x,y)$. 
-\item[Step 3.] Find areas of the formed figures, $c_i, i = 1, \ldots, N$.
-\item[Step 4.] For $j = 1$ to $N$
-\begin{itemize}
-  \item[Step 4.1]  While ($c_i \leq f_j$)
-  \item[Step 4.2]  Add nearest points to boundary on figure $IF_i$ in the figure $IF_j$. 
-\end{itemize}
-\end{itemize}
-\noindent\rule{\textwidth}{1pt}
-
-The final result of the algorithm is similar to liquid foolding from different sides.
-
-\subsect{2.2.~Genetic Algorithm}
-
-First, we choose $N$ point, $b_i$  on random way, where $N$ is a number of edges.
-
-Each of these points, with the end points from the edges of the polygon will be connected, and on this ways we form $N$ triangles  $T_i$. The area of the triagles $T_i, i=1, \ldots, N $ will be denoted with $a_i$. The area of the polygon, outside of the triangles is denoted with $W$.  This is shown on Fig. \ref{fig:sub6}.
-
-We form following sums:
-
-Now, we regard one triangle.  Let, for the random point $t(x_i, y_i) \in T_i$,  $d_{ij}$  is distance from the point to the $i$-edge from the polygon. 
+Where $d_{ij}$ is the distance between each pixel $j$ part of the sub-polygon $T_i$ and the edge $i$ of the polygon $P$. Also $k$ is the total number of pixels in the sub-polygon $T_i$. The lowest theoretical value of D is zero, but such solution is not acceptable, because it will mean that there is no sub-polygons (all $T_i$ polygons are with surface of zero). We are not going to provide estimation for the upper bound of D, because its calculation is complicated. 
 
 \begin{figure}[h!]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.5\linewidth]{pic04.png}
-  \caption{Point selection near to each side.}
+  \caption{Point near to each polygon $P$ edge.}
   \label{fig:sub5}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.6\linewidth]{pic05.png}
-  \caption{Form initial triangles to each side.}
+  \caption{Polygon $P$ separation.}
   \label{fig:sub6}
 \end{subfigure}
-\caption{Selection of initial sub-polygons related to each side of the polygon.}
+\caption{Sub-polygons $T_i$ related to each side of the polygon.}
 \label{fig:three}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=.5\linewidth]{pic06.png}
-  \caption{Calculate average distance of all pixels in the sub-plygon to the polygon side.}
+  \caption{Average distance of all pixels in the sub-plygon $T_i$ to the polygon $P$ edge.}
 \label{fig:four}
 \end{figure}
 \FloatBarrier
 
-Our goal is to minimized the cost function. Since, we need to minimize $D, W, A, B$. The set of values for $W$ is $[0, count( p(x_i, y_i))], \forall p(x_i, y_i) \in P$. From , this we can conclude, that optimal value for W is 0.
-The set of values for $A$ is $[0, count (p(x_i, y_i))], \forall p(x_i, y_i) \in P$, we conclude that minimal value of $A$ is 0. And, the $B$ have set of values $[N,count( p(x_i, y_i))], \forall p(x_i, y_i) \in P$, and minimal value from $B$ is $N$, where $N$ is a number of edges of the polygon.
-if we succeed to minimize $A, B, W$, we will give the minimum value of the cost function.
+\subsect{2.2.~Monte Carlo Flooding Algorithm}
 
-\subsect{2.3.~Offsetting Polygon}
+The idea for the algorithm comes from the real life natural floods. If we invert the process and instead of chatchmens we put liquid sources in the centers of the polygon $P$ edges, we can spill a liquid with certain quantities $f_i$. After that we can observe how the liquid will fulfill the polygon $P$ by imagine that all quantities $f_i$ are with different colors. The algorithm is in the group of the Monte Carlo algorithms, because virtual flooding process is based on random pixels selection ( the source code is available at http://github.com/TodorBalabanov/ESGI-132-Geometric-Visualization-of-a-Polygon-Area-Partitioning ). Pseudocode is as follows:
+
+\newpage
+\noindent\rule{\textwidth}{1pt}
+\begin{itemize}
+\item[Step 1] For $i = 1$ to $N$
+\item[Step 2] Initialize $l$ with zero and flooded area $c_i^0$, as single pixel in the middle of the edge $i$.
+	\begin{itemize}
+	\item[Step 3] While ($c_i^l \leq f_j$)
+		\begin{itemize}
+		\item[Step 3.1] Select random pixel $t_{(x,y)}$ which belongs to $W$ area, but has direct neighbouring pixel which belongs to $c_i^l$,
+		\item[Step 3.2] Add $t_{(x,y)}$ to $c_i^l$.
+		\item[Step 3.3] Increase $l$.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\noindent\rule{\textwidth}{1pt}
+
+The final result of the algorithm is $N$ irregular shapes.
+
+\subsect{2.3.~Offsetting Polygon Algorithm}
 
 The main idea of the offsetting polygon approach is to fill the initial polygon with smaller ones of which each side is parallel to the corresponding one of the initial polygon. The initial algorithm is the following:
 
@@ -233,7 +228,7 @@ The initial algorithm applied worked very well for convex polygons. But when the
 
 \sect{3.~Experimens and Results}
 
-\subsect{3.1.~Monte Carlo Flooding}
+\subsect{3.1.~Monte Carlo Flooding Algorithm}
 
 Monte Carlo Flooding is a very efficient heuristics, but it has a few disadvantages. At first place 2D space is divided on shapes similar to semi-circles when polygons are required. At second place it is obvious that distribution of the sub-areas is not optimal, which is clearly visible in Fig. \ref{fig:sub7}. This makes it inappropriate for acceptable solution of the problem, but very proper for initial idea of partitioning. 
 
@@ -256,7 +251,7 @@ Monte Carlo Flooding is a very efficient heuristics, but it has a few disadvanta
 \end{figure}
 \FloatBarrier
 
-\subsect{3.2.~Offsetting Polygon}
+\subsect{3.2.~Offsetting Polygon Algorithm}
 
 Offsetting polygon method divides the polygon into smaller polygons with sides parallel to the initial one. Figure \ref{fig:sub11} shows the intitial step of the algorithm. Figure \ref{fig:sub12} is the result from the unmodified algorithm, ran on a concave polygon. Figure \ref{fig:sub13} contains the step with the intersecting parts of the polygon and a final result of two smaller triangles.
 
